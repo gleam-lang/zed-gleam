@@ -1,0 +1,11 @@
+#
+# zed-gleam
+#
+
+*.wasm
+
+#
+# Rust
+#
+
+/target
