@@ -87,6 +87,7 @@
   "assert"
   "case"
   "const"
+  "echo"
   ; DEPRECATED: 'external' was removed in v0.30.
   "external"
   "fn"
