@@ -43,7 +43,7 @@ impl GleamExtension {
 
         let (platform, arch) = zed::current_platform();
         let asset_name = format!(
-            "gleam-{version}-{arch}-{os}.tar.gz",
+            "gleam-{version}-{arch}-{os}.{ext}",
             version = release.version,
             arch = match arch {
                 zed::Architecture::Aarch64 => "aarch64",
@@ -54,6 +54,10 @@ impl GleamExtension {
                 zed::Os::Mac => "apple-darwin",
                 zed::Os::Linux => "unknown-linux-musl",
                 zed::Os::Windows => "pc-windows-msvc",
+            },
+            ext = match platform {
+                zed::Os::Mac | zed::Os::Linux => "tar.gz",
+                zed::Os::Windows => "zip",
             },
         );
 
@@ -75,7 +79,10 @@ impl GleamExtension {
             zed::download_file(
                 &asset.download_url,
                 &version_dir,
-                zed::DownloadedFileType::GzipTar,
+                match platform {
+                    zed::Os::Mac | zed::Os::Linux => zed::DownloadedFileType::GzipTar,
+                    zed::Os::Windows => zed::DownloadedFileType::Zip,
+                },
             )
             .map_err(|e| format!("failed to download file: {e}"))?;
 
