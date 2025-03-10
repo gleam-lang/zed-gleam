@@ -76,13 +76,15 @@ impl GleamExtension {
                 &zed::LanguageServerInstallationStatus::Downloading,
             );
 
-            let filetype = match platform {
-                zed::Os::Mac | zed::Os::Linux => zed::DownloadedFileType::GzipTar,
-                zed::Os::Windows => zed::DownloadedFileType::Zip,
-            };
-
-            zed::download_file(&asset.download_url, &version_dir, filetype)
-                .map_err(|e| format!("failed to download file: {e}"))?;
+            zed::download_file(
+                &asset.download_url,
+                &version_dir,
+                match platform {
+                    zed::Os::Mac | zed::Os::Linux => zed::DownloadedFileType::GzipTar,
+                    zed::Os::Windows => zed::DownloadedFileType::Zip,
+                },
+            )
+            .map_err(|e| format!("failed to download file: {e}"))?;
 
             let entries =
                 fs::read_dir(".").map_err(|e| format!("failed to list working directory {e}"))?;
