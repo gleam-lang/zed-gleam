@@ -28,17 +28,17 @@
 (unqualified_import "type" (type_identifier) @type)
 (unqualified_import (type_identifier) @constructor)
 (function
-  name: (identifier) @function)
+  name: (identifier) @function.definition)
 (external_function
-  name: (identifier) @function)
+  name: (identifier) @function.definition)
 (function_parameter
   name: (identifier) @variable.parameter)
 ((function_call
-   function: (identifier) @function)
+   function: (identifier) @function.call)
  (#is-not? local))
 ((binary_expression
    operator: "|>"
-   right: (identifier) @function)
+   right: (identifier) @function.call)
  (#is-not? local))
 
 ; "Properties"
