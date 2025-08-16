@@ -17,5 +17,3 @@ commit = "6ece453acf8b14568c10f629f8cd25d3dde3794f"
 [slash_commands.gleam-project]
 description = "Returns information about the current Gleam project."
 requires_argument = false
-
-[indexed_docs_providers.gleam-hexdocs]

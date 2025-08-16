@@ -1,10 +1,7 @@
-mod hexdocs;
-
 use std::fs;
-use std::sync::LazyLock;
 use zed::lsp::CompletionKind;
 use zed::{
-    CodeLabel, CodeLabelSpan, KeyValueStore, LanguageServerId, SlashCommand, SlashCommandOutput,
+    CodeLabel, CodeLabelSpan, LanguageServerId, SlashCommand, SlashCommandOutput,
     SlashCommandOutputSection,
 };
 use zed_extension_api::{self as zed, Result};
@@ -183,35 +180,6 @@ impl zed::Extension for GleamExtension {
                 })
             }
             command => Err(format!("unknown slash command: \"{command}\"")),
-        }
-    }
-
-    fn suggest_docs_packages(&self, provider: String) -> Result<Vec<String>, String> {
-        match provider.as_str() {
-            "gleam-hexdocs" => {
-                static GLEAM_PACKAGES: LazyLock<Vec<String>> = LazyLock::new(|| {
-                    include_str!("../packages.txt")
-                        .lines()
-                        .filter(|line| !line.starts_with('#'))
-                        .map(|line| line.trim().to_owned())
-                        .collect()
-                });
-
-                Ok(GLEAM_PACKAGES.clone())
-            }
-            _ => Ok(Vec::new()),
-        }
-    }
-
-    fn index_docs(
-        &self,
-        provider: String,
-        package: String,
-        database: &KeyValueStore,
-    ) -> Result<(), String> {
-        match provider.as_str() {
-            "gleam-hexdocs" => hexdocs::index(package, database),
-            _ => Ok(()),
         }
     }
 }
