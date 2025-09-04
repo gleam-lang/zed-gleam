@@ -12,7 +12,7 @@ language = "Gleam"
 
 [grammars.gleam]
 repository = "https://github.com/gleam-lang/tree-sitter-gleam"
-commit = "6ece453acf8b14568c10f629f8cd25d3dde3794f"
+commit = "dae1551a9911b24f41d876c23f2ab05ece0a9d4c"
 
 [slash_commands.gleam-project]
 description = "Returns information about the current Gleam project."
